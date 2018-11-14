@@ -12,7 +12,7 @@ float static m  = 0.2;
 float static PI = 3.14159265359;
 vector<float> g;
 float static ht = 0.001; //Intervalo de tiempo entre punto y punto
-float static timeS = 5.0; //Tiempo total de simulacion
+float static timeS = 2.0; //Tiempo total de simulacion
 int N = (int) timeS/ht; 
 
 vector<float> f[2];
