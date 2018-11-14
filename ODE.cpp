@@ -35,8 +35,19 @@ void calcularMovimientoProyectil(vector<float> x0,vector<float> v0){
 
 	for (int i = 1; i < N; ++i)
 	{
-		slope = (1.0/6.0)*(k1+2.0*k2+2.0*k3+k4);
-		Y[i]=Y[i-1]+ht*slope;
+		//Calculo de k1
+		vector<float> k1[2];
+		funY(Y[i-1][0],Y[i-1][1]);
+		k1[0] = f[0];
+		k1[1] = f[1];
+
+		//Calculo de k2
+		vector<float> k2[2];
+		funY(Y[i-1][0]+(ht/2),Y[i-1][1]+k1*(h/2));
+		k2[0] = f[0];
+		k2[1] = f[1];
+	 	//slope = (1.0/6.0)*(k1+2.0*k2+2.0*k3+k4);
+		//Y[i][0]=Y[i-1][0]+ht*slope[0];
 	}
 }
 
