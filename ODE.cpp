@@ -98,8 +98,30 @@ void calcularMovimientoProyectil(vector<float> x0,vector<float> v0){
 		k4[0] = f[0];
 		k4[1] = f[1];
 
-	 	//slope = (1.0/6.0)*(k1+2.0*k2+2.0*k3+k4);
-		//Y[i][0]=Y[i-1][0]+ht*slope[0];
+		//Creacion de pendiente
+	 	float slope0X = (1.0/6.0)*((k1[0]).at(0)+2.0*(k2[0]).at(0)+2.0*(k3[0]).at(0)+(k4[0]).at(0));
+	 	float slope0Y = (1.0/6.0)*((k1[0]).at(1)+2.0*(k2[0]).at(1)+2.0*(k3[0]).at(1)+(k4[0]).at(1));
+	 	float slope1X = (1.0/6.0)*((k1[1]).at(0)+2.0*(k2[1]).at(0)+2.0*(k3[1]).at(0)+(k4[1]).at(0));
+	 	float slope1Y = (1.0/6.0)*((k1[1]).at(1)+2.0*(k2[1]).at(1)+2.0*(k3[1]).at(1)+(k4[1]).at(1));
+	 	
+	 	vector<float> slope0;
+	 	slope0.push_back(slope0X);
+	 	slope0.push_back(slope0Y);
+
+	 	vector<float> slope1;
+	 	slope1.push_back(slope1X);
+	 	slope1.push_back(slope1Y);
+
+	 	vector<float> Y0;
+	 	Y0.push_back((Y[i-1][0]).at(0)+ht*slope0.at(0));
+	 	Y0.push_back((Y[i-1][0]).at(1)+ht*slope0.at(1));
+
+	 	vector<float> Y1;
+	 	Y1.push_back((Y[i-1][1]).at(0)+ht*slope1.at(0));
+	 	Y1.push_back((Y[i-1][1]).at(1)+ht*slope1.at(1));
+
+		Y[i][0]=Y0;
+		Y[i][1]=Y1;
 	}
 }
 
