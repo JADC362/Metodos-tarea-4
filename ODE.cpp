@@ -43,7 +43,20 @@ void calcularMovimientoProyectil(vector<float> x0,vector<float> v0){
 
 		//Calculo de k2
 		vector<float> k2[2];
-		funY(Y[i-1][0]+(ht/2),Y[i-1][1]+k1*(h/2));
+
+		vector<float> tempY0;
+		float tempY0_x = (Y[i-1][0]).at(0)+(ht/2);
+		float tempY0_y = (Y[i-1][0]).at(1)+(ht/2);
+		tempY0.push_back(tempY0_x);
+		tempY0.push_back(tempY0_y);
+
+		vector<float> tempY1;
+		float tempY1_x = (Y[i-1][1]).at(0)+((k1[1]).at(0))*(ht/2);
+		float tempY1_y = (Y[i-1][1]).at(1)+((k1[1]).at(1))*(ht/2);
+		tempY1.push_back(tempY1_x);
+		tempY1.push_back(tempY1_y);
+
+		funY(tempY0,tempY1);
 		k2[0] = f[0];
 		k2[1] = f[1];
 	 	//slope = (1.0/6.0)*(k1+2.0*k2+2.0*k3+k4);
