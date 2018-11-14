@@ -44,21 +44,60 @@ void calcularMovimientoProyectil(vector<float> x0,vector<float> v0){
 		//Calculo de k2
 		vector<float> k2[2];
 
-		vector<float> tempY0;
-		float tempY0_x = (Y[i-1][0]).at(0)+(ht/2);
-		float tempY0_y = (Y[i-1][0]).at(1)+(ht/2);
-		tempY0.push_back(tempY0_x);
-		tempY0.push_back(tempY0_y);
+		vector<float> tempY0_k2;
+		float tempY0_k2_x = (Y[i-1][0]).at(0)+(ht/2);
+		float tempY0_k2_y = (Y[i-1][0]).at(1)+(ht/2);
+		tempY0_k2.push_back(tempY0_k2_x);
+		tempY0_k2.push_back(tempY0_k2_y);
 
-		vector<float> tempY1;
-		float tempY1_x = (Y[i-1][1]).at(0)+((k1[1]).at(0))*(ht/2);
-		float tempY1_y = (Y[i-1][1]).at(1)+((k1[1]).at(1))*(ht/2);
-		tempY1.push_back(tempY1_x);
-		tempY1.push_back(tempY1_y);
+		vector<float> tempY1_k2;
+		float tempY1_k2_x = (Y[i-1][1]).at(0)+((k1[1]).at(0))*(ht/2);
+		float tempY1_k2_y = (Y[i-1][1]).at(1)+((k1[1]).at(1))*(ht/2);
+		tempY1_k2.push_back(tempY1_k2_x);
+		tempY1_k2.push_back(tempY1_k2_y);
 
-		funY(tempY0,tempY1);
+		funY(tempY0_k2,tempY1_k2);
 		k2[0] = f[0];
 		k2[1] = f[1];
+
+		//Calculo de k3
+		vector<float> k3[2];
+
+		vector<float> tempY0_k3;
+		float tempY0_k3_x = (Y[i-1][0]).at(0)+(ht/2);
+		float tempY0_k3_y = (Y[i-1][0]).at(1)+(ht/2);
+		tempY0_k3.push_back(tempY0_k3_x);
+		tempY0_k3.push_back(tempY0_k3_y);
+
+		vector<float> tempY1_k3;
+		float tempY1_k3_x = (Y[i-1][1]).at(0)+((k2[1]).at(0))*(ht/2);
+		float tempY1_k3_y = (Y[i-1][1]).at(1)+((k2[1]).at(1))*(ht/2);
+		tempY1_k3.push_back(tempY1_k3_x);
+		tempY1_k3.push_back(tempY1_k3_y);
+
+		funY(tempY0_k3,tempY1_k3);
+		k3[0] = f[0];
+		k3[1] = f[1];
+
+		//Calculo de k4
+		vector<float> k4[2];
+
+		vector<float> tempY0_k4;
+		float tempY0_k4_x = (Y[i-1][0]).at(0)+(ht);
+		float tempY0_k4_y = (Y[i-1][0]).at(1)+(ht);
+		tempY0_k4.push_back(tempY0_k4_x);
+		tempY0_k4.push_back(tempY0_k4_y);
+
+		vector<float> tempY1_k4;
+		float tempY1_k4_x = (Y[i-1][1]).at(0)+((k3[1]).at(0))*(ht);
+		float tempY1_k4_y = (Y[i-1][1]).at(1)+((k3[1]).at(1))*(ht);
+		tempY1_k4.push_back(tempY1_k4_x);
+		tempY1_k4.push_back(tempY1_k4_y);
+
+		funY(tempY0_k4,tempY1_k4);
+		k4[0] = f[0];
+		k4[1] = f[1];
+
 	 	//slope = (1.0/6.0)*(k1+2.0*k2+2.0*k3+k4);
 		//Y[i][0]=Y[i-1][0]+ht*slope[0];
 	}
