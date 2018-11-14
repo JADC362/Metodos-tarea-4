@@ -9,9 +9,9 @@ using namespace std;
 //Como se hace uso de vectores, la convencion de componentes sera sera A = {Ax,Ay}
 float static c = 0.2;
 float static m  = 0.2;
-float static PI = 3.1415;
+float static PI = 3.14159265359;
 vector<float> g;
-float static ht = 0.01; //Intervalo de tiempo entre punto y punto
+float static ht = 0.001; //Intervalo de tiempo entre punto y punto
 float static timeS = 5.0; //Tiempo total de simulacion
 int N = (int) timeS/ht; 
 
@@ -123,10 +123,9 @@ void calcularMovimientoProyectil(vector<float> x0,vector<float> v0){
 
 		Y[i][0]=Y0;
 		Y[i][1]=Y1;
-	}
-	for (int i = 0; i < N; ++i)
-	{
-		cout<<"X-x="<<(Y[i][0]).at(0)<<"  ,  X_y="<<(Y[i][0]).at(1)<<endl;
+
+		//cout<<"X-x="<<(Y[i-1][0]).at(0)<<"  ,  X_y="<<(Y[i-1][0]).at(1)<<"  --  V-x="<<(Y[i-1][1]).at(0)<<"  ,  V_y="<<(Y[i-1][1]).at(1)<<endl;
+		cout<<(Y[i-1][0]).at(0)<<","<<(Y[i-1][0]).at(1)<<","<<(Y[i-1][1]).at(0)<<","<<(Y[i-1][1]).at(1)<<endl;
 	}
 }
 
