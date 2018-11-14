@@ -12,7 +12,7 @@ float static m  = 0.2;
 float static PI = 3.14159265359;
 vector<float> g;
 float static ht = 0.001; //Intervalo de tiempo entre punto y punto
-float static timeS = 2.0; //Tiempo total de simulacion
+float static timeS = 3.0; //Tiempo total de simulacion
 int N = (int) timeS/ht; 
 
 vector<float> f[2];
@@ -114,13 +114,18 @@ void calcularMovimientoProyectil(vector<float> x0,vector<float> v0){
 	 	slope1.push_back(slope1Y);
 
 	 	vector<float> Y0;
+	 	vector<float> Y1;	
+
 	 	Y0.push_back((Y[i-1][0]).at(0)+ht*slope0.at(0));
 	 	Y0.push_back((Y[i-1][0]).at(1)+ht*slope0.at(1));
-
-	 	vector<float> Y1;
 	 	Y1.push_back((Y[i-1][1]).at(0)+ht*slope1.at(0));
 	 	Y1.push_back((Y[i-1][1]).at(1)+ht*slope1.at(1));
 
+	 	if ((Y[i-1][0]).at(1) < 0)
+	 	{
+	 		break;
+	 	}
+	 	
 		Y[i][0]=Y0;
 		Y[i][1]=Y1;
 
