@@ -21,6 +21,7 @@ int N = (int) timeS/ht;
 vector<float> f[2];
 vector<float> x0;
 vector<float> v0;
+vector<int> contador;
 
 void calcularFuncion(vector<float> y0,vector<float> y1){
 	float magY1 = sqrt(pow(y1.at(0),2)+pow(y1.at(1),2));
@@ -44,14 +45,20 @@ float calcularMovimientoProyectil(float angulo,string archivoNombre){
 	Y[0][0]=x0;
 	Y[0][1]=v0;
 
+
 	//Creacion flujo de datos para archivo datos.dat
 	ofstream datos;
-	datos.open(archivoNombre.c_str());
+	if(archivoNombre == "datos2.dat"){
+		//contador.clear();
+		datos.open(archivoNombre.c_str(), ios::out | ios::app);
+	}
+	else{
+		datos.open(archivoNombre.c_str());
+	}
 
 	datos<<"Angulo:"<<angulo<<endl;
 
 	float distanciaRecorrida = 0;
-
 	//Calculo de movimiento y velocidad del proyectil
 	for (int i = 1; i < N; ++i)
 	{
@@ -142,15 +149,14 @@ float calcularMovimientoProyectil(float angulo,string archivoNombre){
 
 	 	if ((Y[i-1][0]).at(1) < 0)
 	 	{
+	 		contador.push_back(i);
 	 		break;
 	 	}
 	 	
 		Y[i][0]=Y0;
 		Y[i][1]=Y1;
 
-		distanciaRecorrida += sqrt(pow(Y[i][0].at(0)-Y[i-1][0].at(0),2)+pow(Y[i][0].at(1)-Y[i-1][0].at(1),2));
-
-		
+		distanciaRecorrida += sqrt(pow(Y[i][0].at(0)-Y[i-1][0].at(0),2)+pow(Y[i][0].at(1)-Y[i-1][0].at(1),2));	
 		datos<<"t="<<i*ht<<" , X-x="<<(Y[i-1][0]).at(0)<<" , X_y="<<(Y[i-1][0]).at(1)<<" , V-x="<<(Y[i-1][1]).at(0)<<" , V_y="<<(Y[i-1][1]).at(1)<<"\n";
 	}
 	datos.close();
@@ -176,7 +182,11 @@ int main(){
 		angulo=10*i;
 		distanciasAngulos[i-1]=calcularMovimientoProyectil(angulo,"datos2.dat");
 	}
-
+	
+	ofstream datos;
+	datos.open("datos2.dat", ios::out | ios::app);
+	datos<<contador.at(1)<<","<<contador.at(2)<<","<<contador.at(3)<<","<<contador.at(4)<<","<<contador.at(5)<<","<<contador.at(6)<<","<<contador.at(7)<<endl;
+	datos.close();
 	float distanciaMaxima = 0;
 	int anguloMaximo = 10;
 	for (int i = 0; i < 7; ++i)
