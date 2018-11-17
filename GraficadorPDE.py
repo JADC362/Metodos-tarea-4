@@ -153,10 +153,3 @@ ax = fig.gca(projection='3d')
 surf = ax.plot_surface(x, y, matrizTiempo[T-1], rstride=1, cstride=1, cmap='hot', linewidth=0, antialiased=False)
 fig.colorbar(surf, shrink=0.5, aspect=5)
 fig.savefig("temperaturaCondPe4.pdf",bbox_inches="tight")
-
-
-# In[ ]:
-
-
-
-
