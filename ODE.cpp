@@ -49,7 +49,7 @@ float calcularMovimientoProyectil(float angulo,string archivoNombre){
 
 	//Creacion flujo de datos para archivo datos.dat
 	ofstream datos;
-	if(archivoNombre == "datos2.dat"){
+	if(archivoNombre == "datosODE2.dat"){
 		//contador.clear();
 		datos.open(archivoNombre.c_str(), ios::out | ios::app);
 	}
@@ -173,7 +173,7 @@ int main(){
 
 	//Parte uno
 	float angulo = 45.0;
-	float distancia45 = calcularMovimientoProyectil(angulo,"datos1.dat");
+	float distancia45 = calcularMovimientoProyectil(angulo,"datosODE1.dat");
 	cout<<"(Punto 1) La distancia recorrida es: "<<distancia45<<"m"<<endl;
 
 	//Punto dos
@@ -181,11 +181,11 @@ int main(){
 	for (int i = 1; i <= 7; ++i)
 	{
 		angulo=10*i;
-		distanciasAngulos[i-1]=calcularMovimientoProyectil(angulo,"datos2.dat");
+		distanciasAngulos[i-1]=calcularMovimientoProyectil(angulo,"datosODE2.dat");
 	}
 	
 	ofstream datos;
-	datos.open("datos2.dat", ios::out | ios::app);
+	datos.open("datosODE2.dat", ios::out | ios::app);
 	datos<<contador.at(1)<<","<<contador.at(2)<<","<<contador.at(3)<<","<<contador.at(4)<<","<<contador.at(5)<<","<<contador.at(6)<<","<<contador.at(7)<<endl;
 	datos.close();
 	float distanciaMaxima = 0;

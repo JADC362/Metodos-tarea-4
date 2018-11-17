@@ -213,8 +213,9 @@ void ecuacionDifusionCondicionesP(string nombreArchivo){
 }
 
 int main(){
-	ecuacionDifusionCondicionesF("datosF.dat");
-	ecuacionDifusionCondicionesA("datosA.dat");
-	ecuacionDifusionCondicionesP("datosP.dat");
+	cout << dt;
+	ecuacionDifusionCondicionesF("datosPDEF.dat");
+	ecuacionDifusionCondicionesA("datosPDEA.dat");
+	ecuacionDifusionCondicionesP("datosPDEP.dat");
 	return 0;
 }

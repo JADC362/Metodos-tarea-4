@@ -1,17 +1,11 @@
-#!/usr/bin/env python
-# coding: utf-8
+#Graficacion datos ODE
 
-# In[190]:
-
-
+#Importacion de librerias
 import numpy as np
 import matplotlib.pyplot as plt
 
-
-# In[191]:
-
-
-datos = np.genfromtxt("datos1.dat",dtype=None,delimiter="\n")
+#Obtencion y clasificacion de datos para los valores de movimiento de proyecto de los angulo 45 
+datos = np.genfromtxt("datosODE1.dat",dtype=None,delimiter="\n")
 datosTi=np.zeros([len(datos)])
 datosDx=np.zeros([len(datos)])
 datosDy=np.zeros([len(datos)])
@@ -31,14 +25,11 @@ plt.title("Movimiento de un proyectil")
 plt.ylabel("Posicion Y")
 plt.xlabel("Posicion X")
 plt.legend()
-plt.show()
-
-# In[192]:
-
+plt.savefig("proyectilAngulo45.pdf",bbox_inches="tight")
 
 #Obtencion y clasificacion de datos para los valores de movimiento de proyecto de los angulo 10,20,30,40,50,60,70
-datos = np.genfromtxt("datos2.dat",dtype=None,delimiter="\n",skip_footer=1)
-contadores = np.genfromtxt("datos2.dat",delimiter=",",skip_header=len(datos))
+datos = np.genfromtxt("datosODE2.dat",dtype=None,delimiter="\n",skip_footer=1)
+contadores = np.genfromtxt("datosODE2.dat",delimiter=",",skip_header=len(datos))
 matrizDatos = []
 inicioContador = 1;
 finalContador = int(contadores[0]);
@@ -63,5 +54,4 @@ plt.title("Movimiento de un proyectil")
 plt.ylabel("Posicion Y")
 plt.xlabel("Posicion X")
 plt.legend()
-plt.show()
-
+plt.savefig("proyectilDiferentesAngulos.pdf",bbox_inches="tight")

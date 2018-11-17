@@ -1,0 +1,88 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, total={7in, 10in}]{geometry}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{caption}
+\usepackage{subcaption}
+
+\title{Métodos computacionales - Tarea 4}
+\author{John Alejandro Duarte Carrasco - 201614088}
+\date{Noviembre 2018}
+
+\begin{document}
+
+\maketitle
+
+\section*{ODE - Movimiento de un proyectil}
+
+Movimiento de un proyectil que sigue la ecuación
+
+\begin{equation}
+    \frac{d^{2}\vec{x}(t)}{dt^{2}}=-\vec{g}-c\frac{|\vec{x}(t)|^{2}}{m}\frac{\vec{x}(t)}{|\vec{x}(t)|}
+\end{equation}
+
+A continuación se observa el comportamiento del proyectil para unas condiciones iniciales:
+
+\begin{equation}
+    \vec{x}(t=0)=(0,0) \qquad \vec{v}(t=0)=300(cos(\phi),sin(\phi))
+\end{equation}
+
+\begin{figure}[H]
+    \centering
+    \subfigure[]{\label{fig:proyectilAngulo45}\includegraphics[scale = 0.4]{proyectilAngulo45}}
+    \subfigure[]{\label{fig:proyectilDiferentesAngulos}\includegraphics[scale = 0.4]{proyectilDiferentesAngulos}}
+    \caption{Movimiento de un proyectil en los planos X y Y para una velocidad inicial V0 con ángulo $\phi$ igual a a) 45$^{\circ}$ y b) (10-70)$^{\circ}$}
+    \label{fig:CondicionesFijasTemp}
+\end{figure}
+
+Para la gráfica de 45 grados (Punto 1), se obtuvo que la distancia recorrida es: 7.95729m
+
+Para la segunda gráfica (Punto 2), se obtuvo que la distancia máxima recorrida es: 8.95599m y se da para un ángulo de 70 grados.
+
+
+\section*{PDE - Temperatura en una roca de calcita}
+
+Comportamiento de la temperatura en una sección 2D de 50x50cm de una roca de calcita con una varilla cilíndrica incrustada perpendicularmente de diámetro 10cm. Aquí, la ecuación que rige el comportamiento de la temperatura es:
+
+\begin{equation}
+    \frac{dT(x,y)}{dt}=\nu\frac{d^{2}T(x,y)}{dx^{2}}+\nu\frac{d^{2}T(x,y)}{dy^{2}}
+\end{equation}
+
+La varilla posee una temperatura de 100$^{\circ}C$ constantes. Las condiciones iniciales de temperatura para la roca de calcita es de 10$^{\circ}C$ y las condiciones de frontera se dan para diferentes casos. Para cada caso, se realizo una simulación para un T = 1000*dt, con un dt = 274346s. En cada uno, se realzaron 4 cuatro gráficas, que constatan la evolución de la temperatura en diferentes puntos del tiempo.
+
+\subsection*{Condiciones de frontera fijas}
+
+Las fronteras se mantienen a 10$^{\circ}C$ para toda la simulación. En este caso, se observa que para el tiempo de simulación dado, se alcanzo un punto de estabilidad relativamente rápido comparado contra las gráficas de otras condiciones de frontera, pues en la gráfica c) se observa mínimo cambio con respecto a la gráfica en d).
+\begin{figure}[H]
+    \centering
+    \subfigure[]{\label{fig:temperaturaCondFi1}\includegraphics[scale = 0.5]{temperaturaCondFi1}}
+    \subfigure[]{\label{fig:temperaturaCondFi2}\includegraphics[scale = 0.5]{temperaturaCondFi2}}
+    \subfigure[]{\label{fig:temperaturaCondFi3}\includegraphics[scale = 0.5]{temperaturaCondFi3}}
+    \subfigure[]{\label{fig:temperaturaCondFi4}\includegraphics[scale = 0.5]{temperaturaCondFi4}}
+    \caption{Diagrama de temperatura de una placa metálica con una barra cilíndrica en la mitad con condiciones fijas para un tiempo a) t=0, b) t=(1/3)T, c) t=(2/3)T, d) t=T.}
+    \label{fig:CondicionesFijasTemp}
+\end{figure}
+\subsection*{Condiciones de frontera abiertas}
+Las fronteras se mantienen libres para toda la simulación. En este caso, se observa que que las fronteras empiezan gradualmente a aumentar su temperatura, destacando, curiosamente, las esquinas de la roca. Estas últimas tienden a aumentar en menor grado, comparado con el centro del lado, lo que termina por producir un efecto de onda estacionaria.
+\begin{figure}[H]
+    \centering
+    \subfigure[]{\label{fig:temperaturaCondAb1}\includegraphics[scale = 0.5]{temperaturaCondAb1}}
+    \subfigure[]{\label{fig:temperaturaCondAb2}\includegraphics[scale = 0.5]{temperaturaCondAb2}}
+    \subfigure[]{\label{fig:temperaturaCondAb3}\includegraphics[scale = 0.5]{temperaturaCondAb3}}
+    \subfigure[]{\label{fig:temperaturaCondAb4}\includegraphics[scale = 0.5]{temperaturaCondAb4}}
+    \caption{Diagrama de temperatura de una placa metálica con una barra cilíndrica en la mitad con condiciones abiertas para un tiempo a) t=0, b) t=(1/3)T, c) t=(2/3)T, d) t=T.}
+    \label{fig:CondicionesFijasTemp}
+\end{figure}
+\subsection*{Condiciones de frontera periódicas}
+Las fronteras se mantienen libres y periódicas para toda la simulación. En este caso, se observa que que las fronteras empiezan gradualmente a aumentar su temperatura, destacando, también, las esquinas de la roca. Estas últimas tienden a aumentar en menor grado, comparado con el centro del lado, lo que termina por producir un efecto de onda estacionaria. En comparación con las fronteras abiertas, se evidencia un aumento mucho más significativo de temperatura a lo largo del tiempo.
+\begin{figure}[H]
+    \centering
+    \subfigure[]{\label{fig:temperaturaCondPe1}\includegraphics[scale = 0.5]{temperaturaCondPe1}}
+    \subfigure[]{\label{fig:temperaturaCondPe2}\includegraphics[scale = 0.5]{temperaturaCondPe2}}
+    \subfigure[]{\label{fig:temperaturaCondPe3}\includegraphics[scale = 0.5]{temperaturaCondPe3}}
+    \subfigure[]{\label{fig:temperaturaCondPe4}\includegraphics[scale = 0.5]{temperaturaCondPe4}}
+    \caption{Diagrama de temperatura de una placa metálica con una barra cilíndrica en la mitad con condiciones periódicas para un tiempo a) t=0, b) t=(1/3)T, c) t=(2/3)T, d) t=T.}
+    \label{fig:CondicionesFijasTemp}
+\end{figure}
