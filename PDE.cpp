@@ -16,7 +16,7 @@ static float rho = 2710; //[kg/m^3]
 static float v = ka/(Cp*rho); //Coeficiente de difusion
 
 static float dx = 1; //dx = dy
-static float alpha = 0.1;
+static float alpha = 0.2;
 static float dt = alpha*pow(dx,2)/v;
 
 int N = (int) L/dx;
