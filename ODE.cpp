@@ -34,6 +34,7 @@ void calcularFuncion(vector<float> y0,vector<float> y1){
 	f[1]=tempY1;
 }
 
+//Calcula los movimientos de un proyectil a partir de unas condiciones iniciales establecidas, un angulo y el nombre del archivo en donde guardar los datos 
 float calcularMovimientoProyectil(float angulo,string archivoNombre){
 	//Condiciones iniciales para V0
 	v0.clear();
