@@ -7,23 +7,29 @@
 using namespace std;
 
 //Constantes
-static float L = 50.0; //Longitud placa
-static float d = 10.0; //Diametro barrila
+static float PI = 3.14159265359;
+
+static float L = 0.5; //Longitud placa
+static float d = 0.1; //Diametro barrila
 
 static float ka = 1.62; //[m^2 /s]
 static float Cp = 820; //[J/(kg K)]
 static float rho = 2710; //[kg/m^3]
 static float v = ka/(Cp*rho); //Coeficiente de difusion
 
-static float dx = 1; //dx = dy
+static float dx = 0.01; //dx = dy
 static float alpha = 0.2;
 static float dt = alpha*pow(dx,2)/v;
 
-int N = (int) L/dx;
-int NBarra = (int) d/dx;
+int N =  L/dx;
+int NBarra = d/dx;
+int NCalcita = (int) (N*N)-(PI*pow(NBarra,2));
 int TF = 1000;
 int TA = 1000;
 int TP = 1000;
+
+static float tempBarra = 100+273;
+static float tempIni = 10+273;
 
 void ecuacionDifusionCondicionesF(string nombreArchivo){
 	//Creacion archivo de datos
@@ -33,6 +39,8 @@ void ecuacionDifusionCondicionesF(string nombreArchivo){
 	float matrizPasado[N][N];
 	float matrizPresente[N][N];
 
+	float tempPromedio = tempIni;
+
 	for (int i = 0; i < N; ++i)
 	{
 		for (int j = 0; j < N; ++j)
@@ -40,17 +48,18 @@ void ecuacionDifusionCondicionesF(string nombreArchivo){
 			float eqCirc = pow((i*dx)-(L/2),2)+pow((j*dx)-(L/2),2);
 			if (eqCirc <= pow(d/2,2))
 			{
-				matrizPasado[i][j]=100;
+				matrizPasado[i][j]=tempBarra;
 			}
 			else{
-				matrizPasado[i][j]=10;
+				matrizPasado[i][j]=tempIni;
 			}
 		}
 	}
 	datos << "T,"<<TF<<",N,"<<N<<"\n";
 	for (int k = 0; k < TF; ++k)
 	{
-		datos << "Tiempo:"<<k*dt<<"\n";
+		datos << "Tiempo,"<<k*dt<<",TempPromedio,"<<tempPromedio<<"\n";
+		tempPromedio = 0;
 		for (int i = 0; i < N; ++i)
 		{
 			for (int j = 0; j < N; ++j)
@@ -61,18 +70,21 @@ void ecuacionDifusionCondicionesF(string nombreArchivo){
 					if (eqCirc > pow(d/2,2))
 					{
 						matrizPresente[i][j]=alpha*(matrizPasado[i+1][j]+matrizPasado[i-1][j]+matrizPasado[i][j+1]+matrizPasado[i][j-1])+((1-4*alpha)*matrizPasado[i][j]);
+						tempPromedio += matrizPresente[i][j];
 					}
 					else{
-						matrizPresente[i][j] = 100;
+						matrizPresente[i][j] = tempBarra;
 					}
 				}
 				else{
-					matrizPresente[i][j] = 10;
+					matrizPresente[i][j] = tempIni;
+					tempPromedio += matrizPresente[i][j];
 				}
 				datos << matrizPasado[i][j]<< ",";
 			}
 			datos << "\n";
 		}
+		tempPromedio = tempPromedio/(NCalcita);
 		for (int i = 0; i < N; ++i)
 		{
 			for (int j = 0; j < N; ++j)
@@ -92,6 +104,8 @@ void ecuacionDifusionCondicionesA(string nombreArchivo){
 	float matrizPasado[N][N];
 	float matrizPresente[N][N];
 
+	float tempPromedio = tempIni;
+
 	for (int i = 0; i < N; ++i)
 	{
 		for (int j = 0; j < N; ++j)
@@ -99,17 +113,18 @@ void ecuacionDifusionCondicionesA(string nombreArchivo){
 			float eqCirc = pow((i*dx)-(L/2),2)+pow((j*dx)-(L/2),2);
 			if (eqCirc <= pow(d/2,2))
 			{
-				matrizPasado[i][j]=100;
+				matrizPasado[i][j]=tempBarra;
 			}
 			else{
-				matrizPasado[i][j]=10;
+				matrizPasado[i][j]=tempIni;
 			}
 		}
 	}
 	datos << "T,"<<TA<<",N,"<<N<<"\n";
 	for (int k = 0; k < TA; ++k)
 	{
-		datos << "Tiempo:"<<k*dt<<"\n";
+		datos << "Tiempo,"<<k*dt<<",TempPromedio,"<<tempPromedio<<"\n";
+		tempPromedio = 0;
 		for (int i = 0; i < N; ++i)
 		{
 			for (int j = 0; j < N; ++j)
@@ -120,24 +135,27 @@ void ecuacionDifusionCondicionesA(string nombreArchivo){
 					if (eqCirc > pow(d/2,2))
 					{
 						matrizPresente[i][j]=alpha*(matrizPasado[i+1][j]+matrizPasado[i-1][j]+matrizPasado[i][j+1]+matrizPasado[i][j-1])+((1-4*alpha)*matrizPasado[i][j]);
+						tempPromedio += matrizPresente[i][j];
 					}
 					else{
-						matrizPresente[i][j] = 100;
+						matrizPresente[i][j] = tempBarra;
 					}
 				}
 				else{
-					for (int i = 0; i < N; ++i)
+					for (int l = 0; l < N; ++l)
 					{
-						matrizPresente[0][i]=matrizPresente[1][i];
-						matrizPresente[N-1][i]=matrizPresente[N-2][i];
-						matrizPresente[i][0]=matrizPresente[i][1];
-						matrizPresente[i][N-1]=matrizPresente[i][N-2];
+						matrizPresente[0][l]=matrizPresente[1][l];
+						matrizPresente[N-1][l]=matrizPresente[N-2][l];
+						matrizPresente[l][0]=matrizPresente[l][1];
+						matrizPresente[l][N-1]=matrizPresente[l][N-2];
 					}
+					tempPromedio += matrizPresente[i][j];
 				}
 				datos << matrizPasado[i][j]<< ",";
 			}
 			datos << "\n";
 		}
+		tempPromedio = tempPromedio/(NCalcita);
 		for (int i = 0; i < N; ++i)
 		{
 			for (int j = 0; j < N; ++j)
@@ -157,6 +175,8 @@ void ecuacionDifusionCondicionesP(string nombreArchivo){
 	float matrizPasado[N][N];
 	float matrizPresente[N][N];
 
+	float tempPromedio = tempIni;
+
 	for (int i = 0; i < N; ++i)
 	{
 		for (int j = 0; j < N; ++j)
@@ -164,17 +184,18 @@ void ecuacionDifusionCondicionesP(string nombreArchivo){
 			float eqCirc = pow((i*dx)-(L/2),2)+pow((j*dx)-(L/2),2);
 			if (eqCirc <= pow(d/2,2))
 			{
-				matrizPasado[i][j]=100;
+				matrizPasado[i][j]=tempBarra;
 			}
 			else{
-				matrizPasado[i][j]=10;
+				matrizPasado[i][j]=tempIni;
 			}
 		}
 	}
 	datos << "T,"<<TP<<",N,"<<N<<"\n";
 	for (int k = 0; k < TP; ++k)
 	{
-		datos << "Tiempo:"<<k*dt<<"\n";
+		datos << "Tiempo,"<<k*dt<<",TempPromedio,"<<tempPromedio<<"\n";
+		tempPromedio = 0;
 		for (int i = 0; i < N; ++i)
 		{
 			for (int j = 0; j < N; ++j)
@@ -185,22 +206,25 @@ void ecuacionDifusionCondicionesP(string nombreArchivo){
 					if (eqCirc > pow(d/2,2))
 					{
 						matrizPresente[i][j]=alpha*(matrizPasado[i+1][j]+matrizPasado[i-1][j]+matrizPasado[i][j+1]+matrizPasado[i][j-1])+((1-4*alpha)*matrizPasado[i][j]);
+						tempPromedio += matrizPresente[i][j];
 					}
 					else{
-						matrizPresente[i][j] = 100;
+						matrizPresente[i][j] = tempBarra;
 					}
 				}
 				else{
-					for (int i = 0; i < N; ++i)
+					for (int l = 0; l < N; ++l)
 					{
-						matrizPresente[0][i]=matrizPresente[N-1][i];
-						matrizPresente[i][0]=matrizPresente[i][N-1];
+						matrizPresente[0][l]=matrizPresente[N-1][l];
+						matrizPresente[l][0]=matrizPresente[l][N-1];
 					}
+					tempPromedio += matrizPresente[i][j];
 				}
 				datos << matrizPasado[i][j]<< ",";
 			}
 			datos << "\n";
 		}
+		tempPromedio = tempPromedio/(NCalcita);
 		for (int i = 0; i < N; ++i)
 		{
 			for (int j = 0; j < N; ++j)
@@ -213,7 +237,6 @@ void ecuacionDifusionCondicionesP(string nombreArchivo){
 }
 
 int main(){
-	cout << dt;
 	ecuacionDifusionCondicionesF("datosPDEF.dat");
 	ecuacionDifusionCondicionesA("datosPDEA.dat");
 	ecuacionDifusionCondicionesP("datosPDEP.dat");

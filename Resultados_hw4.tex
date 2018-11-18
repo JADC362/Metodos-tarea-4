@@ -48,7 +48,9 @@ Comportamiento de la temperatura en una sección 2D de 50x50cm de una roca de ca
     \frac{dT(x,y)}{dt}=\nu\frac{d^{2}T(x,y)}{dx^{2}}+\nu\frac{d^{2}T(x,y)}{dy^{2}}
 \end{equation}
 
-La varilla posee una temperatura de 100$^{\circ}C$ constantes. Las condiciones iniciales de temperatura para la roca de calcita es de 10$^{\circ}C$ y las condiciones de frontera se dan para diferentes casos. Para cada caso, se realizo una simulación para un T = 1000*dt, con un dt = 274346s. En cada uno, se realzaron 4 cuatro gráficas, que constatan la evolución de la temperatura en diferentes puntos del tiempo.
+La varilla posee una temperatura de 100$^{\circ}C$ constantes. Las condiciones iniciales de temperatura para la roca de calcita es de 10$^{\circ}C$ y las condiciones de frontera se dan para diferentes casos. Para cada caso, se realizo una simulación para un T = 1000*dt, con un dt = 274346s. En cada uno, se realizaron 4 cuatro gráficas, que constatan la evolución de la temperatura en diferentes puntos del tiempo.
+
+Para cada grafica, los ejes X y Y (plano inferior) representan una sección 2D de la calcita con la barilla, en unidades de metros [m]. En el eje Z, se evidencia una superficie que representa la temperatura de la muestra en ese punto (X,Y), estando esta temperatura en Kelvin [K]. 
 
 \subsection*{Condiciones de frontera fijas}
 
@@ -82,6 +84,17 @@ Las fronteras se mantienen libres y periódicas para toda la simulación. En est
     \subfigure[]{\label{fig:temperaturaCondPe3}\includegraphics[scale = 0.5]{temperaturaCondPe3.pdf}}
     \subfigure[]{\label{fig:temperaturaCondPe4}\includegraphics[scale = 0.5]{temperaturaCondPe4.pdf}}
     \caption{Diagrama de temperatura de una placa metálica con una barra cilíndrica en la mitad con condiciones periódicas para un tiempo a) t=0, b) t=(1/3)T, c) t=(2/3)T, d) t=T.}
+    \label{fig:CondicionesFijasTemp}
+\end{figure}
+
+\subsection*{Temperatura promedio en la calcita}
+Para este caso, se obtuvieron los datos de la temperatura promedio en la calcita para cada caso de condiciones de frontera, y se graficó en el tiempo:
+
+\begin{figure}[H]
+    \centering
+    \subfigure[]{\label{fig:temperaturaPromedioTiempo}\includegraphics[scale = 0.4]{temperaturaPromedioTiempo.pdf}}
+    \subfigure[]{\label{fig:temperaturaPromedioTiempoLog}\includegraphics[scale = 0.4]{temperaturaPromedioTiempoLog.pdf}}
+    \caption{Temperatura promedio en la calcita en función del tiempo para cada caso en escala a) lineal b) logaritmica.}
     \label{fig:CondicionesFijasTemp}
 \end{figure}
 \end{document}

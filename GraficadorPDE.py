@@ -6,6 +6,14 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 
+#Vector de tiempo y temperatura promedio
+vectorTiempoF = []
+vectorTempPF = []
+vectorTiempoA = []
+vectorTempPA = []
+vectorTiempoP = []
+vectorTempPP = []
+
 #Obtencion y clasificacion de datos del archivo datosF para condiciones fijas
 datos = np.genfromtxt("datosPDEF.dat",None,skip_header=1)
 infoDatos = (np.genfromtxt("datosPDEF.dat",skip_footer=(len(datos)-1),dtype=None))[0].decode("UTF8").split(",")
@@ -20,12 +28,14 @@ for i in range(T):
         infoLinea = datos[j].decode("UTF8").split(",")
         for k in range(N):
             matrizTemp[j-inicioContador][k]=float(infoLinea[k])
+    vectorTiempoF.append(float(datos[inicioContador-1].decode("UTF8").split(",")[1]))
+    vectorTempPF.append(float(datos[inicioContador-1].decode("UTF8").split(",")[3]))
     inicioContador += N+1
     finalContador += N+1
     matrizTiempo.append(matrizTemp)
     
-x = np.arange(0,N,1)
-y = np.arange(0,N,1)
+x = np.arange(0,N)*0.01
+y = np.arange(0,N)*0.01
 x,y = np.meshgrid(x, y)
 #Grafica de temperatura en la grilla X Y, para tiempo 0
 fig = plt.figure()
@@ -70,13 +80,12 @@ for i in range(T):
         infoLinea = datos[j].decode("UTF8").split(",")
         for k in range(N):
             matrizTemp[j-inicioContador][k]=float(infoLinea[k])
+    vectorTiempoA.append(float(datos[inicioContador-1].decode("UTF8").split(",")[1]))
+    vectorTempPA.append(float(datos[inicioContador-1].decode("UTF8").split(",")[3]))
     inicioContador += N+1
     finalContador += N+1
     matrizTiempo.append(matrizTemp)
     
-x = np.arange(0,N,1)
-y = np.arange(0,N,1)
-x,y = np.meshgrid(x, y)
 #Grafica de temperatura en la grilla X Y, para tiempo 0
 fig = plt.figure()
 ax = fig.gca(projection='3d')
@@ -119,13 +128,13 @@ for i in range(T):
         infoLinea = datos[j].decode("UTF8").split(",")
         for k in range(N):
             matrizTemp[j-inicioContador][k]=float(infoLinea[k])
+    vectorTiempoP.append(float(datos[inicioContador-1].decode("UTF8").split(",")[1]))
+    vectorTempPP.append(float(datos[inicioContador-1].decode("UTF8").split(",")[3]))
     inicioContador += N+1
     finalContador += N+1
     matrizTiempo.append(matrizTemp)
-    
-x = np.arange(0,N,1)
-y = np.arange(0,N,1)
-x,y = np.meshgrid(x, y)
+
+
 #Grafica de temperatura en la grilla X Y, para tiempo 0
 fig = plt.figure()
 ax = fig.gca(projection='3d')
@@ -153,3 +162,24 @@ ax = fig.gca(projection='3d')
 surf = ax.plot_surface(x, y, matrizTiempo[T-1], rstride=1, cstride=1, cmap='hot', linewidth=0, antialiased=False)
 fig.colorbar(surf, shrink=0.5, aspect=5)
 fig.savefig("temperaturaCondPe4.pdf",bbox_inches="tight")
+
+plt.figure()
+plt.plot(vectorTiempoF,vectorTempPF,label="Fijas")
+plt.plot(vectorTiempoA,vectorTempPA,label="Abiertas")
+plt.plot(vectorTiempoP,vectorTempPP,label="Periodicas")
+plt.title("Temperatura promedio en la calcita en el tiempo")
+plt.ylabel("Temperatura [K]")
+plt.xlabel("Tiempo[s]")
+plt.legend(loc=0)
+plt.savefig("temperaturaPromedioTiempo.pdf",bbox_inches="tight")
+
+plt.figure()
+plt.plot(vectorTiempoF,vectorTempPF,label="Fijas")
+plt.plot(vectorTiempoA,vectorTempPA,label="Abiertas")
+plt.plot(vectorTiempoP,vectorTempPP,label="Periodicas")
+plt.title("Temperatura promedio en la calcita en el tiempo")
+plt.ylabel("Temperatura [K]")
+plt.xlabel("Tiempo[s]")
+plt.xscale('log')
+plt.legend(loc=0)
+plt.savefig("temperaturaPromedioTiempoLog.pdf",bbox_inches="tight")
